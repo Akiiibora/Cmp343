@@ -1,0 +1,64 @@
+What is Bios interrupt services ?
+Even without an operating system, we use BIOS interrupts to communicate with hardware.
+
+A BIOS interrupt service is a set of ready-made commands provided by the BIOS to make it easier for programmers to access hardware.
+Direct access to hardware is difficult.
+Each graphics card and each keyboard may operate differently.
+
+The BIOS standardizes these devices.
+The programmer only calls the interrupt number without modification.
+
+Question 1:
+To read the keyboard → INT 16h (Keyboard Service)
+
+To write to the screen → INT 10h (Video Service)
+Screen output interrupt is the BIOS service used for programs to print something on the screen, change the screen mode, or display characters/graphics.
+
+For disk operations → INT 13h (Disk Service)
+Disk interrupt refers to the BIOS service used to directly access the computer’s disk drives.
+
+When the computer starts, even before the operating system is loaded, it can read the keyboard and write to the screen (it does not need an operating system).
+
+
+Question 2:
+CS (Code Segment) → Holds the beginning of the code segment.
+
+IP (Instruction Pointer) → Holds the offset address of the next instruction to be executed.
+
+DS (Data Segment) → Holds the base address of the data segment.
+
+ES (Extra Segment) → The second data segment used for additional data operations.
+
+AX (Accumulator Register) → The main accumulator register used in arithmetic and input/output operations.
+
+BX (Base Register) → Used as the base register for addressing and indexing.
+
+Question 3:
+INT 10h (BIOS Video Services) → Provided by the BIOS for hardware-level screen/video operations.
+
+INT 21h (DOS Services) → Provides operating system (DOS) services such as file, keyboard, memory, screen, etc.
+
+In short: INT 10h is at the hardware level, INT 21h is at the operating system level.
+
+Question 4:
+Display a character using BIOS  :  INT 10h, Function 0Eh
+Read keystroke using BIOS  :  INT 16h, Function 00h
+Print a string using DOS   :  INT 21h, Function 09h
+
+
+
+Question 5:
+a) BIOS accesses the hardware directly; it communicates directly with physical devices such as the graphics card, disk controller, and keyboard controller.
+DOS, on the other hand, uses the hardware through the BIOS; it manages higher-level operations such as the file system, keyboard buffer, and screen output.
+
+b) In real mode, the physical address is calculated with the following formula:
+
+Physical Address = Segment × 16 + Offset
+
+c) The processor looks at the interrupt vector table and goes to the service routine defined for INT 21h.
+
+From the DOS service table, it executes the relevant service according to the function number in the AH register (e.g., file operation, screen printing, string reading, etc.).
+
+When the task is finished, the CPU returns to its previous position.
+
+
